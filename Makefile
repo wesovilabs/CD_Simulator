@@ -5,3 +5,7 @@ run: ; @ ## Run environment
 .PHONY: stop
 stop: ;@ ## Stop the environment
 	docker-compose down -v;
+
+.PHONY: logs
+logs: ;@ ## It displays the logs
+	docker-compose logs -f;
