@@ -1,0 +1,30 @@
+version: "3"
+
+volumes:
+  pgdata:
+  giteadata:
+
+services:
+  db:
+    image: postgres:9.6
+    restart: always
+    environment:
+      - POSTGRES_USER=gitea
+      - POSTGRES_PASSWORD=gitea
+      - POSTGRES_DB=gitea
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  server:
+    image: gitea/gitea:latest
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    restart: always
+    volumes:
+      - giteadata:/data
+    ports:
+      - "3000:3000"
+      - "2200:22"
+    depends_on:
+      - db
